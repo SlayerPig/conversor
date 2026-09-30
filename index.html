@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor Numérico</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 30px;
+    }
+    .contenedor {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    .botones {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      flex: 1;
+      padding: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+    .btn-convertir {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-limpiar {
+      background-color: #6c757d;
+      color: white;
+    }
+    .caja-resultado {
+      background: #e9ecef;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    p {
+      margin: 5px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
 
+  <div class="contenedor">
+    <h2>Conversor de Bases</h2>
+
+    <label for="numero">Ingresa número decimal:</label>
+    <input type="number" id="numero" placeholder="Ejemplo: 255">
+
+    <div class="botones">
+      <button class="btn-convertir" onclick="convertir()">Convertir</button>
+      <button class="btn-limpiar" onclick="limpiar()">Limpiar</button>
+    </div>
+
+    <div class="caja-resultado">
+      <p>Binario: <span id="resBinario">-</span></p>
+    </div>
+
+    <div class="caja-resultado">
+      <p>Octal: <span id="resOctal">-</span></p>
+    </div>
+
+    <div class="caja-resultado">
+      <p>Hexadecimal: <span id="resHex">-</span></p>
+    </div>
+  </div>
+
+  <script>
+    function convertir() {
+      // 1. Obtenemos el valor del input
+      let valorInput = document.getElementById("numero").value;
+      
+      // 2. Convertimos el texto a un número entero
+      let decimal = parseInt(valorInput);
+
+      // 3. Verificamos si el usuario no escribió nada o puso algo inválido
+      if (isNaN(decimal)) {
+        alert("Por favor, ingresa un número válido");
+        return;
+      }
+
+      // 4. Hacemos las conversiones y las mostramos en la pantalla
+      document.getElementById("resBinario").textContent = decimal.toString(2);
+      document.getElementById("resOctal").textContent = decimal.toString(8);
+      document.getElementById("resHex").textContent = decimal.toString(16).toUpperCase();
+    }
+
+    function limpiar() {
+      // Borra el texto de la casilla y reinicia los resultados
+      document.getElementById("numero").value = "";
+      document.getElementById("resBinario").textContent = "-";
+      document.getElementById("resOctal").textContent = "-";
+      document.getElementById("resHex").textContent = "-";
+    }
+  </script>
+
+</body>
+</html>
