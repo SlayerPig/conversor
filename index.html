@@ -1,120 +1,95 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Conversor Numérico</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #A5FF99;
-      padding: 30px;
-    }
-    .contenedor {
-      max-width: 400px;
-      margin: 0 auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-      font-size: 16px;
-    }
-    .botones {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    button {
-      flex: 1;
-      padding: 10px;
-      font-size: 15px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-    }
-    .btn-convertir {
-      background-color: #007bff;
-      color: white;
-    }
-    .btn-limpiar {
-      background-color: #6c757d;
-      color: white;
-    }
-    .caja-resultado {
-      background: #e9ecef;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-    p {
-      margin: 5px 0;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
+<!DOCTYPE html> <!-- Indica al navegador que este documento está escrito en HTML5 -->
+<html lang="es"> <!-- Abre la etiqueta raíz del documento y define el idioma en español -->
+<head> <!-- Inicio de la sección de metadatos y configuración que no se ve en pantalla -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres para soportar acentos, letras ñ y símbolos -->
+  <title>Conversor Numérico</title> <!-- Define el título que aparecerá en la pestaña del navegador -->
+  <style> /* Inicio de la hoja de estilos CSS para dar diseño visual a la página */
+    body { /* Selecciona el cuerpo completo de la página web */
+      font-family: Arial, sans-serif; /* Define la tipografía principal como Arial y tipo sans-serif como alternativa */
+      background-color: #f0f2f5; /* Aplica un color de fondo gris claro a toda la pantalla */
+      padding: 30px; /* Agrega un espacio interno alrededor de todo el contenido de la página */
+    } /* Cierra las reglas de estilo para el cuerpo */
+    .contenedor { /* Selecciona el contenedor principal que agrupa todo el formulario */
+      max-width: 400px; /* Establece un ancho máximo de 400 píxeles para que no se expanda demasiado */
+      margin: 0 auto; /* Centra automáticamente el contenedor de forma horizontal en la pantalla */
+      background: white; /* Establece el fondo del contenedor en color blanco */
+      padding: 20px; /* Agrega un espacio interno de 20 píxeles dentro del contenedor blanco */
+      border-radius: 8px; /* Redondea las esquinas del contenedor con un radio de 8 píxeles */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Agrega una sombra suave alrededor del contenedor para darle profundidad */
+    } /* Cierra las reglas de estilo para el contenedor */
+    h2 { /* Selecciona el título principal dentro del contenedor */
+      text-align: center; /* Centra el texto del título */
+      color: #333; /* Aplica un color gris oscuro al texto del título */
+    } /* Cierra las reglas de estilo para el título h2 */
+    input { /* Selecciona el campo de entrada donde el usuario escribe */
+      width: 100%; /* Hace que la casilla ocupe el 100% del ancho disponible en su contenedor */
+      padding: 8px; /* Agrega un relleno interno de 8 píxeles dentro de la casilla de texto */
+      margin-bottom: 15px; /* Añade un margen inferior de 15 píxeles para separarlo del botón */
+      box-sizing: border-box; /* Asegura que el relleno y bordes se incluyan dentro del ancho total del input */
+      font-size: 16px; /* Define un tamaño de fuente de 16 píxeles para que los números se vean claros */
+    } /* Cierra las reglas de estilo para el campo input */
+    button { /* Selecciona el botón dentro de la página */
+      width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+      padding: 10px; /* Agrega un relleno interno vertical y horizontal de 10 píxeles */
+      font-size: 15px; /* Define el tamaño del texto del botón a 15 píxeles */
+      cursor: pointer; /* Cambia el puntero del ratón a una mano cuando se pasa sobre el botón */
+      border: none; /* Elimina el borde por defecto que trae el botón */
+      border-radius: 5px; /* Redondea las esquinas del botón con un radio de 5 píxeles */
+      background-color: #007bff; /* Aplica un color azul de fondo al botón */
+      color: white; /* Establece el color del texto del botón en blanco */
+      margin-bottom: 20px; /* Añade un margen inferior para separarlo de las cajas de resultado */
+    } /* Cierra las reglas de estilo para el botón */
+    .caja-resultado { /* Selecciona las cajas donde se muestran los resultados convertidos */
+      background: #e9ecef; /* Aplica un fondo gris muy claro a cada recuadro de resultado */
+      padding: 10px; /* Agrega un espacio interno de 10 píxeles dentro de la caja */
+      margin-bottom: 10px; /* Añade una separación inferior de 10 píxeles entre cada recuadro */
+      border-radius: 5px; /* Redondea las esquinas de las cajas de resultado */
+    } /* Cierra las reglas de estilo para las cajas de resultado */
+    p { /* Selecciona los párrafos dentro de la página */
+      margin: 5px 0; /* Ajusta los márgenes superior e inferior a 5 píxeles */
+      font-weight: bold; /* Aplica texto en negrita a los nombres de las bases y valores */
+    } /* Cierra las reglas de estilo para los párrafos */
+  </style> <!-- Cierra la etiqueta de estilos CSS -->
+</head> <!-- Cierra la sección head de metadatos -->
+<body> <!-- Inicio del cuerpo del documento donde reside el contenido visible -->
 
-  <div class="contenedor">
-    <h2>Conversor de Bases</h2>
+  <div class="contenedor"> <!-- Inicia el contenedor blanco central para organizar la interfaz -->
+    <h2>Conversor de Bases</h2> <!-- Muestra el título principal dentro del contenedor -->
 
-    <label for="numero">Ingresa número decimal:</label>
-    <input type="number" id="numero" placeholder="Ejemplo: 255">
+    <label for="numero">Ingresa número decimal:</label> <!-- Etiqueta descriptiva vinculada al campo con id "numero" -->
+    <input type="number" id="numero" placeholder="Ejemplo: 255"> <!-- Campo de entrada numérica con id "numero" -->
 
-    <div class="botones">
-      <button class="btn-convertir" onclick="convertir()">Convertir</button>
-      <button class="btn-limpiar" onclick="limpiar()">Limpiar</button>
-    </div>
+    <button onclick="convertir()">Convertir</button> <!-- Botón único que ejecuta la función "convertir()" -->
 
-    <div class="caja-resultado">
-      <p>Binario: <span id="resBinario">-</span></p>
-    </div>
+    <div class="caja-resultado"> <!-- Contenedor individual para mostrar el resultado en formato binario -->
+      <p>Binario: <span id="resBinario">-</span></p> <!-- Muestra el título y el span con id "resBinario" para el valor -->
+    </div> <!-- Cierra la caja de resultado binario -->
 
-    <div class="caja-resultado">
-      <p>Octal: <span id="resOctal">-</span></p>
-    </div>
+    <div class="caja-resultado"> <!-- Contenedor individual para mostrar el resultado en formato octal -->
+      <p>Octal: <span id="resOctal">-</span></p> <!-- Muestra el título y el span con id "resOctal" para el valor -->
+    </div> <!-- Cierra la caja de resultado octal -->
 
-    <div class="caja-resultado">
-      <p>Hexadecimal: <span id="resHex">-</span></p>
-    </div>
-  </div>
+    <div class="caja-resultado"> <!-- Contenedor individual para mostrar el resultado en formato hexadecimal -->
+      <p>Hexadecimal: <span id="resHex">-</span></p> <!-- Muestra el título y el span con id "resHex" para el valor -->
+    </div> <!-- Cierra la caja de resultado hexadecimal -->
+  </div> <!-- Cierra el contenedor blanco principal -->
 
-  <script>
-    function convertir() {
-      // 1. Obtenemos el valor del input
-      let valorInput = document.getElementById("numero").value;
+  <script> /* Inicia el bloque de código de programación en JavaScript */
+    function convertir() { // Declara la función "convertir" que se activa al presionar el botón de conversión
+      let valorInput = document.getElementById("numero").value; // Extrae el valor escrito en el input con id "numero"
       
-      // 2. Convertimos el texto a un número entero
-      let decimal = parseInt(valorInput);
+      let decimal = parseInt(valorInput); // Convierte la cadena de texto extraída a un número entero
 
-      // 3. Verificamos si el usuario no escribió nada o puso algo inválido
-      if (isNaN(decimal)) {
-        alert("Por favor, ingresa un número válido");
-        return;
-      }
+      if (isNaN(decimal)) { // Comprueba si el valor ingresado no es un número válido (ej. casilla vacía)
+        alert("Por favor, ingresa un número válido"); // Muestra una alerta si el usuario no ingresó un número
+        return; // Detiene la ejecución de la función para no procesar un valor inválido
+      } // Cierra la verificación del número
 
-      // 4. Hacemos las conversiones y las mostramos en la pantalla
-      document.getElementById("resBinario").textContent = decimal.toString(2);
-      document.getElementById("resOctal").textContent = decimal.toString(8);
-      document.getElementById("resHex").textContent = decimal.toString(16).toUpperCase();
-    }
+      document.getElementById("resBinario").textContent = decimal.toString(2); // Convierte a binario (base 2) y lo muestra
+      document.getElementById("resOctal").textContent = decimal.toString(8); // Convierte a octal (base 8) y lo muestra
+      document.getElementById("resHex").textContent = decimal.toString(16).toUpperCase(); // Convierte a hexadecimal (base 16) y lo muestra
+    } // Cierra la función convertir
+  </script> <!-- Cierra el bloque de código JavaScript -->
 
-    function limpiar() {
-      // Borra el texto de la casilla y reinicia los resultados
-      document.getElementById("numero").value = "";
-      document.getElementById("resBinario").textContent = "-";
-      document.getElementById("resOctal").textContent = "-";
-      document.getElementById("resHex").textContent = "-";
-    }
-  </script>
-
-</body>
-</html>
+</body> <!-- Cierra la etiqueta body del cuerpo del documento -->
+</html> <!-- Cierra la etiqueta html finalizando todo el documento -->
