@@ -78,13 +78,13 @@
   <div class="contenedor">
     <h2>Conversor de Bases</h2>
 
-    <label for="baseOrigen">Convertir desde:</label>
-    <select id="baseOrigen">
-      <option value="10">Decimal (Base 10)</option>
-      <option value="2">Binario (Base 2)</option>
-      <option value="8">Octal (Base 8)</option>
-      <option value="16">Hexadecimal (Base 16)</option>
-    </select>
+   <label for="baseOrigen">Convertir desde:</label>
+<select id="baseOrigen">
+  <option value="10">Decimal</option>
+  <option value="2">Binario</option>
+  <option value="8">Octal</option>
+  <option value="16">Hexadecimal</option>
+</select>
 
     <label for="numero">Ingresa el valor:</label>
     <input type="text" id="numero" placeholder="Ej: 255 o 11111111 o FF">
@@ -116,7 +116,7 @@
       let decimal = parseInt(valorInput, baseOrigen);
 
       if (isNaN(decimal)) {
-        alert("Por favor, ingresa un número válido para la base seleccionada");
+        alert("Por favor, ingresa un número válido para la opcion seleccionada");
         return;
       }
 
