@@ -161,14 +161,14 @@
 
     <!-- COLUMNA DERECHA: Tabla y Guía -->
     <div class="contenedor">
-      <h3>Uso en Calculadora</h3>
+      <h3>Uso en Conversor</h3>
       <p style="font-size: 13px; color: #666; text-align: center;">Haz clic en una base para ver su guía:</p>
 
       <table class="tabla-bases">
         <thead>
           <tr>
             <th>Base</th>
-            <th>Modo Calcu</th>
+            <th>Modo</th>
           </tr>
         </thead>
         <tbody>
@@ -199,11 +199,11 @@
   </div>
 
   <script>
-    const guiasCalcu = { (almacena los textos de ayuda pa la calculadora)
-      '10': '<b>Modo DEC (Decimal):</b><br>Es el modo normal de tu conversor. Acepta digitos del 0 al 9.',
-      '2': '<b>Modo BIN (Binario):</b><br>En el conversor activa BIN. Solo podras usar las teclas 0 y 1.',
-      '8': '<b>Modo OCT (Octal):</b><br>Activa el modo OCT en el conversor. Solo permite digitos del 0 al 7.',
-      '16': '<b>Modo HEX (Hexadecimal):</b><br>Activa HEX en el conversor. Habilita digitos del 0 al 9 y se activan los botones especiales de letras A, B, C, D, E y F.'
+    const guiasCalcu = {
+      '10': '<b>Modo DEC (Decimal):</b><br>Es el modo normal de tu conversor. Acepta dígitos del 0 al 9.',
+      '2': '<b>Modo BIN (Binario):</b><br>En el conversor activa BIN. Solo podrás usar las teclas 0 y 1.',
+      '8': '<b>Modo OCT (Octal):</b><br>Activa el modo OCT en el conversor. Solo permite dígitos del 0 al 7.',
+      '16': '<b>Modo HEX (Hexadecimal):</b><br>Activa HEX en el conversor. Habilita dígitos del 0 al 9 y se activan los botones especiales de letras A, B, C, D, E y F.'
     };
 
     function seleccionarBase(base) {
