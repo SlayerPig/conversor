@@ -3,35 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor Numérico Universal</title>
+  <title>Conversor Numérico y Guía</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f2f5;
-      padding: 20px 10px;
+      padding: 20px;
       margin: 0;
     }
+
+    .layout-principal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
     .contenedor {
-      width: 90%;
-      max-width: 400px;
-      margin: 20px auto;
+      flex: 1;
+      min-width: 300px;
       background: white;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       box-sizing: border-box;
     }
-    h2 {
+
+    h2, h3 {
       text-align: center;
       color: #333;
       margin-top: 0;
     }
+
     label {
       font-weight: bold;
       display: block;
       margin-top: 10px;
       margin-bottom: 5px;
     }
+
     input, select {
       width: 100%;
       padding: 12px;
@@ -41,6 +52,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+
     button {
       width: 100%;
       padding: 12px;
@@ -53,6 +65,7 @@
       margin-bottom: 20px;
       font-weight: bold;
     }
+
     .caja-resultado {
       background: #e9ecef;
       padding: 12px;
@@ -60,55 +73,158 @@
       border-radius: 5px;
       word-break: break-all;
     }
+
     p {
       margin: 5px 0;
+    }
+
+    .tabla-bases {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+
+    .tabla-bases th, .tabla-bases td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .tabla-bases tr {
+      cursor: pointer;
+    }
+
+    .tabla-bases tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .fila-activa {
+      background-color: #007bff !important;
+      color: white;
       font-weight: bold;
     }
 
-    @media (max-width: 480px) {
-      .contenedor {
-        width: 95%;
-        padding: 15px;
+    .caja-guia {
+      background: #e7f3ff;
+      border-left: 4px solid #007bff;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 650px) {
+      .layout-principal {
+        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="contenedor">
-    <h2>Conversor de Bases</h2>
+  <div class="layout-principal">
 
-   <label for="baseOrigen">Convertir desde:</label>
-<select id="baseOrigen">
-  <option value="10">Decimal</option>
-  <option value="2">Binario</option>
-  <option value="8">Octal</option>
-  <option value="16">Hexadecimal</option>
-</select>
+    <!-- COLUMNA IZQUIERDA: Conversor -->
+    <div class="contenedor">
+      <h2>Conversor de Bases</h2>
 
-    <label for="numero">Ingresa el valor:</label>
-    <input type="text" id="numero" placeholder="Ej: 255 o 11111111 o FF">
+      <label for="baseOrigen">Convertir desde:</label>
+      <select id="baseOrigen" onchange="actualizarBaseDesdeMenu()">
+        <option value="10">Decimal</option>
+        <option value="2">Binario</option>
+        <option value="8">Octal</option>
+        <option value="16">Hexadecimal</option>
+      </select>
 
-    <button onclick="convertir()">Convertir</button>
+      <label for="numero">Ingresa el valor:</label>
+      <input type="text" id="numero" placeholder="Ej: 255 o 11111111 o FF">
 
-    <div class="caja-resultado">
-      <p>Decimal: <span id="resDecimal">-</span></p>
+      <button onclick="convertir()">Convertir</button>
+
+      <div class="caja-resultado">
+        <p><b>Decimal:</b> <span id="resDecimal">-</span></p>
+      </div>
+
+      <div class="caja-resultado">
+        <p><b>Binario:</b> <span id="resBinario">-</span></p>
+      </div>
+
+      <div class="caja-resultado">
+        <p><b>Octal:</b> <span id="resOctal">-</span></p>
+      </div>
+
+      <div class="caja-resultado">
+        <p><b>Hexadecimal:</b> <span id="resHex">-</span></p>
+      </div>
     </div>
 
-    <div class="caja-resultado">
-      <p>Binario: <span id="resBinario">-</span></p>
+    <!-- COLUMNA DERECHA: Tabla y Guía -->
+    <div class="contenedor">
+      <h3>Uso en Calculadora</h3>
+      <p style="font-size: 13px; color: #666; text-align: center;">Haz clic en una base para ver su guía:</p>
+
+      <table class="tabla-bases">
+        <thead>
+          <tr>
+            <th>Base</th>
+            <th>Modo Calcu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="row-10" class="fila-activa" onclick="seleccionarBase('10')">
+            <td>Decimal</td>
+            <td>DEC</td>
+          </tr>
+          <tr id="row-2" onclick="seleccionarBase('2')">
+            <td>Binario</td>
+            <td>BIN</td>
+          </tr>
+          <tr id="row-8" onclick="seleccionarBase('8')">
+            <td>Octal</td>
+            <td>OCT</td>
+          </tr>
+          <tr id="row-16" onclick="seleccionarBase('16')">
+            <td>Hexadecimal</td>
+            <td>HEX</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="caja-guia" id="textoGuia">
+        <!-- Texto dinámico de la guía -->
+      </div>
     </div>
 
-    <div class="caja-resultado">
-      <p>Octal: <span id="resOctal">-</span></p>
-    </div>
-
-    <div class="caja-resultado">
-      <p>Hexadecimal: <span id="resHex">-</span></p>
-    </div>
   </div>
 
   <script>
+    const guiasCalcu = {
+      '10': '<b>Modo DEC (Decimal):</b><br>Es el modo normal de tu calculadora. Acepta dígitos del 0 al 9. Para convertir en calculadora física o de cel, ponla en modo Programador y selecciona DEC antes de teclear.',
+      '2': '<b>Modo BIN (Binario):</b><br>En la calculadora programadora activa BIN. Solo podrás usar las teclas 0 y 1. Ideal para ver valores de bits directos.',
+      '8': '<b>Modo OCT (Octal):</b><br>Activa el modo OCT en la calculadora. Solo permite dígitos del 0 al 7 (el 8 y 9 quedan deshabilitados en el teclado).',
+      '16': '<b>Modo HEX (Hexadecimal):</b><br>Activa HEX en la calculadora programadora. Habilita dígitos del 0 al 9 y se activan los botones especiales de letras A, B, C, D, E y F.'
+    };
+
+    function seleccionarBase(base) {
+      document.getElementById("baseOrigen").value = base;
+      actualizarInterfaz(base);
+    }
+
+    function actualizarBaseDesdeMenu() {
+      let base = document.getElementById("baseOrigen").value;
+      actualizarInterfaz(base);
+    }
+
+    function actualizarInterfaz(base) {
+      ['10', '2', '8', '16'].forEach(b => {
+        document.getElementById('row-' + b).classList.remove('fila-activa');
+      });
+
+      document.getElementById('row-' + base).classList.add('fila-activa');
+      document.getElementById('textoGuia').innerHTML = guiasCalcu[base];
+    }
+
     function convertir() {
       let valorInput = document.getElementById("numero").value.trim();
       let baseOrigen = parseInt(document.getElementById("baseOrigen").value);
@@ -116,7 +232,7 @@
       let decimal = parseInt(valorInput, baseOrigen);
 
       if (isNaN(decimal)) {
-        alert("Por favor, ingresa un número válido para la opcion seleccionada");
+        alert("Por favor, ingresa un número válido para la base seleccionada");
         return;
       }
 
@@ -125,6 +241,8 @@
       document.getElementById("resOctal").textContent = decimal.toString(8);
       document.getElementById("resHex").textContent = decimal.toString(16).toUpperCase();
     }
+
+    actualizarInterfaz('10');
   </script>
 
 </body>
